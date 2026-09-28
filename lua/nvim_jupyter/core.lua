@@ -285,7 +285,7 @@ function M.toggle_cell_type()
     vim.api.nvim_buf_set_lines(bufnr, start, start + 1, false, {
         "# %%", "", (function()
         if next_type == "markdown" then
-            return "[markdown]"
+            return " [markdown]"
         end
         -- regular block
         return ""
