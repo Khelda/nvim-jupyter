@@ -272,12 +272,14 @@ local hidden_ns = vim.api.nvim_create_namespace("jupyter_hidden")
 function M.toggle_cell_type()
     local bufnr, start, _ = M.get_current_cell_bounds()
     local marker = vim.api.nvim_buf_get_lines(bufnr, start, start + 1, false)
+    print(marker[1])
     -- parsing marker line
-    if marker[1]:match("^# %%%% %[markdown%]") then
-        vim.notify("test", vim.log.levels.DEBUG)
+    local next_type = nil
+    if marker[1]:match("^# %%%% %[markdown%]") ~= nil then
+        next_type = "code"
+    elseif marker[1]:match("^# %%%% %[output%]") == nil then
         -- no stealing output block
-    elseif marker[1]:match("^# %%%% %[output%]") then
-        vim.notify("truc", vim.log.levels.DEBUG)
+        next_type = "markdown"
     end
 end
 
