@@ -281,6 +281,7 @@ function M.toggle_cell_type()
         -- no stealing output block
         next_type = "markdown"
     end
+    print(next_type)
 end
 
 function M.toggle_output_visibility()
