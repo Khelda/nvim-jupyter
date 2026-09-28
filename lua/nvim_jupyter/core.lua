@@ -282,8 +282,8 @@ function M.toggle_cell_type()
         next_type = "markdown"
     end
     -- swap block top line with new type
-    vim.api.nvim_buf_set_lines(bufnr, start, start + 1, false, {
-        "# %%", "", (function()
+    vim.api.nvim_buf_set_lines(bufnr, start, start, false, {
+        "# %%", (function()
         if next_type == "markdown" then
             return " [markdown]"
         end
