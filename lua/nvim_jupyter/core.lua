@@ -289,7 +289,7 @@ function M.toggle_cell_type()
         end
         -- regular block
         return ""
-    end)() })
+    end)(), "" })
 end
 
 function M.toggle_output_visibility()
