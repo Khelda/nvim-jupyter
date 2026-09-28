@@ -269,8 +269,8 @@ end
 
 local hidden_ns = vim.api.nvim_create_namespace("jupyter_hidden")
 
-function M.toggle_cell_type()
-    print("TODO")
+function M.toggle_cell_type(target_line, bufnr)
+    vim.notify("test", vim.log.levels.ERROR)
 end
 
 function M.toggle_output_visibility()
