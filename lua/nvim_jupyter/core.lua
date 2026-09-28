@@ -273,9 +273,10 @@ function M.toggle_cell_type()
     local bufnr, start, _ = M.get_current_cell_bounds()
     local marker = vim.api.nvim_buf_get_lines(bufnr, start, start + 1, false)
     -- parsing marker line
-    if marker[1]:match("^# %% %[markdown]%") then
+    if marker[1]:match("^# %% %[markdown%]") then
         vim.notify("test", vim.log.levels.DEBUG)
-    else
+        -- no stealing output block
+    elseif marker[1]:match("^# %%%% %[output%]") then
         vim.notify("truc", vim.log.levels.DEBUG)
     end
 end
