@@ -269,8 +269,15 @@ end
 
 local hidden_ns = vim.api.nvim_create_namespace("jupyter_hidden")
 
-function M.toggle_cell_type(target_line, bufnr)
-    vim.notify("test", vim.log.levels.ERROR)
+function M.toggle_cell_type()
+    local bufnr, start_ln, _ = M.get_current_cell_bounds()
+    local marker = vim.api.nvim_buf_get_lines(bufnr, start_ln, start_ln, false)
+    -- parsing marker line
+    if marker[1]:match("MARKDOWN") then
+        vim.notify("test", vim.log.levels.DEBUG)
+    else
+        vim.notify("truc", vim.log.levels.DEBUG)
+    end
 end
 
 function M.toggle_output_visibility()
