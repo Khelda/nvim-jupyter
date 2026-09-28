@@ -270,7 +270,7 @@ end
 local hidden_ns = vim.api.nvim_create_namespace("jupyter_hidden")
 
 function M.toggle_cell_type()
-    local bufnr, start, _ = M.get_current_cell_bounds()
+    local bufnr, start, finish = M.get_current_cell_bounds()
     local marker = vim.api.nvim_buf_get_lines(bufnr, start, start + 1, false)
     -- parsing marker line
     local next_type = nil
@@ -281,13 +281,10 @@ function M.toggle_cell_type()
         next_type = "markdown"
     end
     -- swap block top line with new type
-    print("# %%" .. (function()
-        if next_type == "markdown" then
-            return " [markdown]"
-        else
-            return ""
-        end
-    end)())
+    local content = vim.api.nvim_buf_get_lines(bufnr, start + 1, finish, false)
+    vim.api.nvim_buf_set_lines(bufnr, start, start + 1, false, {
+        "# %%", " [markdown]", table.concat(content, "\n")
+    })
 end
 
 function M.toggle_output_visibility()
