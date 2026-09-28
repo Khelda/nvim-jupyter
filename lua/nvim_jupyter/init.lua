@@ -16,25 +16,25 @@ function M.setup(opts)
             local wins = vim.api.nvim_list_wins()
             local only_sidebars = true
             local has_normal_win = false
-            
+
             for _, w in ipairs(wins) do
                 local config = vim.api.nvim_win_get_config(w)
                 if config.relative == "" then -- It's a normal window (not floating)
                     has_normal_win = true
                     local buf = vim.api.nvim_win_get_buf(w)
                     local name = vim.api.nvim_buf_get_name(buf)
-                    local is_sidebar = name:match("Jupyter Undo Tree") or 
-                                       name:match("Jupyter Local Cell Tree") or
-                                       name:match("Jupyter Variable Explorer") or
-                                       name:match("Jupyter Local Variables")
-                                       
+                    local is_sidebar = name:match("Jupyter Undo Tree") or
+                        name:match("Jupyter Local Cell Tree") or
+                        name:match("Jupyter Variable Explorer") or
+                        name:match("Jupyter Local Variables")
+
                     if not is_sidebar then
                         only_sidebars = false
                         break
                     end
                 end
             end
-            
+
             if has_normal_win and only_sidebars then
                 vim.cmd("qa!")
             end
@@ -43,4 +43,3 @@ function M.setup(opts)
 end
 
 return M
-
