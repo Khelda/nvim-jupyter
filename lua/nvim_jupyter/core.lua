@@ -283,8 +283,9 @@ function M.toggle_cell_type()
     -- swap block top line with new type
     local content = vim.api.nvim_buf_get_lines(bufnr, start + 1, finish, false)
     vim.api.nvim_buf_set_lines(bufnr, start, start + 1, false, {
-        "# %%", " [markdown]", table.concat(content, "\n")
-    })
+        "# %%", (function()
+        return ""
+    end)() } .. content)
 end
 
 function M.toggle_output_visibility()
