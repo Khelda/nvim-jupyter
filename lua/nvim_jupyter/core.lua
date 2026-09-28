@@ -275,21 +275,20 @@ function M.toggle_cell_type()
     print(marker[1])
     -- parsing marker line
     local next_type = nil
-    if marker[1]:match("^# %%%% %[markdown%]") ~= nil then
+    if marker[1]:match("^# %%%% %[markdown%]") then
         next_type = "code"
     elseif marker[1]:match("^# %%%% %[output%]") == nil then
         -- no stealing output block
         next_type = "markdown"
     end
     -- swap block top line with new type
-    vim.api.nvim_buf_set_lines(bufnr, start - 1, start, false, {
-        "# %%", (function()
+    print("# %%" .. (function()
         if next_type == "markdown" then
             return " [markdown]"
         end
         -- regular block
         return ""
-    end)(), "" })
+    end)())
 end
 
 function M.toggle_output_visibility()
