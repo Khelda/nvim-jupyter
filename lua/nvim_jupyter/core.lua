@@ -281,7 +281,15 @@ function M.toggle_cell_type()
         -- no stealing output block
         next_type = "markdown"
     end
-    print(next_type)
+    -- swap block top line with new type
+    vim.api.nvim_buf_set_lines(bufnr, start, start + 1, false, {
+        "# %%", "", (function()
+        if next_type == "markdown" then
+            return "[markdown]"
+        end
+        -- regular block
+        return ""
+    end)() })
 end
 
 function M.toggle_output_visibility()
